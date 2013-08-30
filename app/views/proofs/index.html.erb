@@ -1,0 +1,26 @@
+<h1 class="half"><%= breadcrumbs :admin, :proofs %></h1>
+<%= link_to 'Generate Code', proofs_generate_code_path, :class => 'half align_right' %>
+<hr class="full" />
+<table class="full">
+  <tr>
+    <th>Student ID</th>
+    <th>School</th>
+    <th>Code</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @proofs.each do |proof| %>
+  <tr>
+    <td><%= proof.student_id %></td>
+    <td><%= proof.school.try(:title) %></td>
+    <td><%= link_to proof.code, "/proof/#{proof.code}" %></td>
+    <td><%= link_to 'Show', proof %></td>
+    <td><%= link_to 'Edit', edit_proof_path(proof) %></td>
+    <td><%= link_to 'Destroy', proof, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<hr class="full" />
+<%= link_to 'New Proof', new_proof_path, :class => 'half' %>

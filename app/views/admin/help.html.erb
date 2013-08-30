@@ -1,0 +1,307 @@
+<h1 class="full"><%= breadcrumbs :admin, :help %></h1>
+<hr class="full" />
+<h2 class="full">
+  <a name="orders">Orders</a>
+</h2>
+<div class="third">
+  <h4>Viewing all orders</h4>
+  <p>
+    Click on <%= link_to 'Orders', orders_path %> to view all orders. On this page, you can also
+    click 'View processed' and 'View unprocessed' in the upper right corner to view those respective
+    selections. When viewing all orders, the orders are positioned by date and the processed orders
+    will appear in grey. To download a CSV file of the orders, click on the "Download CSV File"
+    link at the bottom left of the page.
+  </p>
+</div>
+<div class="third">
+  <h4>Editing an order</h4>
+  <p>
+    Click on <%= link_to 'Orders', orders_path %> and find the order you wish to edit and click on the
+    corresponding 'Edit' link. You can edit all fields and click on 'Update Order' to save changes.
+  </p>
+</div>
+<div class="third">
+  <h4>Viewing an order</h4>
+  <p>
+    Click on <%= link_to 'Orders', orders_path %> and find the order you wish to edit and click on the
+    corresponding 'Show' link. All the order's information will be displayed along with the products
+    that were purchased in the respective order. The button in the lower left will toggle the order
+    to be either processed or unprocessed. The link next to the 'Mark as (not) processed' button will
+    send a receipt of the order to the email specified in the order. If a customer has mistyped his or
+    her email, one can edit the order's email and click 'Resend receipt' to send another receipt to
+    the correct email.
+  </p>
+</div>
+<hr class="full" />
+<h2 class="full">
+  <a name="schools">Schools</a>
+</h2>
+<div class="third">
+  <h4>To create a school</h4>
+  <p>
+    Click on <%= link_to 'New School', new_school_path %>. Enter an appropriate title and leave
+    slug blank for the system to automatically create one. Select multiple package types
+    by holding down the 'Shift' key. These package types will be displayed for the school.
+    Select a school type for the school to show up under. Check the 'Ask for teacher?' box
+    if you want the website to ask for the student's teacher when ordering for this school.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit a school</h4>
+  <p>
+    Click on <%= link_to 'Schools', schools_path %>. Find the school you want
+    to edit, and to the left, click 'Edit'. Follow the same directions in the
+    'To create a school' section.
+  </p>
+</div>
+<div class="third">
+  <h4>To view a school</h4>
+  <p>
+    Click on <%= link_to 'Schools', schools_path %>. Find the school you want
+    to view, and to the left, click 'Show'. All the school's information will
+    be displayed.
+  </p>
+</div>
+<hr class="full" />
+<h2 class="full">
+  <a name="portrait_packages">Portrait Packages</a>
+</h2>
+<p class="full">
+  Package types are logical groups of individual packages.
+</p>
+<div class="third">
+  <h4>To create a package type</h4>
+  <p>
+    Click on <%= link_to 'New Package Type' %>. Enter an appropriate title and leave slug blank
+    to let the system automatically generate one. Check the 'Ask for sport level?' box if you
+    want to ask the customer for sport level. Select multiple schools for which this package
+    type will be available under by holding the 'Shift' key. You can also select multiple packages
+    that will belong to this package type by holding the 'Shift' key. If you want an image to show
+    for this package type, click 'Choose File' and pick an image.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit an package type</h4>
+  <p>
+    Click on <%= link_to 'Package Types', package_types_path %>. Find the package type you want
+    to edit, and to the left, click 'Edit'. Follow the same directions in the
+    'To create an package type' section.
+  </p>
+</div>
+<div class="third">
+  <h4>To view an package type</h4>
+  <p>
+    Click on <%= link_to 'Package Types', package_types_path %>. Find the package type you want
+    to view, and to the left, click 'Show'. All the package type's information will
+    be displayed.
+  </p>
+</div>
+<div class="clear"></div>
+<div class="two_thirds_box">
+  <h4 class="half">To create a package</h4>
+  <p class="third">
+    Click on <%= link_to 'New Package', new_package_path %>.
+    Add a title as a name for the package.
+    Leave slug blank to let it automatically create one.
+    Select a package type that the package will belong to
+    Select multiple option types the customer will be able to
+    choose by holding down the 'shift' key.
+    Check the 'Email digital copy of the photo?' box if you want the
+    customer to be sent an email with their photo. If this is checked,
+    make sure the purchase id box is checked. The following two sections
+    involve setting the price and what option types
+  </p>
+  <p class="third">
+    are available to the customer. Setting a price and option type are not optional,
+    but setting a school, begin date, and end date are optional. When a school is set,
+    the price or option type will show up under that school. The price and option
+    types will only show up after the begin date and before the end date.
+    When they are not set, the price or option type will show up indefinitely.
+    To delete a price or option type from showing up, check the 'Destroy?' box
+    and click 'Update Package'. To add an image for a package, click 'Choose File'
+    under the 'Image' section and choose an appropriate file.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit a package</h4>
+  <p>
+    Click on <%= link_to 'Packages', packages_path %>. Find the package you want
+    to edit, and to the left, click 'Edit'. Follow the same directions in the
+    'To create a package' section.
+  </p>
+  <h4>To view a package</h4>
+  <p>
+    Click on <%= link_to 'Packages', packages_path %>. Find the package you want
+    to view, and to the left, click 'Show'. All the package's information will
+    be displayed.
+  </p>
+</div>
+<hr class="full" />
+<h2 class="full">
+  <a name="options">Options</a>
+</h2>
+<p class="full">
+  Option types are logical groups of individual options.
+</p>
+<div class="third">
+  <h4>To create an option type</h4>
+  <p>
+    Click on <%= link_to 'New Option Type', new_option_type_path %>.
+    Enter an appropriate title, select the packages for which this set of options is availble for. And finally select
+    the options that will be grouped in this option set. The section below contains the options for which schools and
+    for which times option sets are available. To set these, you must select all the schools you want to apply in the top
+    section and then click 'Create Option Type' and then click 'Edit' at the bottom of the next page.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit an option type</h4>
+  <p>
+    Click on <%= link_to 'Option Types', option_types_path %>. Find the option type you want
+    to edit, and to the left, click 'Edit'. Follow the same directions in the
+    'To create an option type' section.
+  </p>
+</div>
+<div class="third">
+  <h4>To view an option type</h4>
+  <p>
+    Click on <%= link_to 'Option Types', option_types_path %>. Find the option type you want
+    to view, and to the left, click 'Show'. All the option type's information will
+    be displayed.
+  </p>
+</div>
+<div class="clear"></div>
+<div class="third">
+  <h4>To create an option</h4>
+  <p>
+    Click on <%= link_to 'New Option', new_option_path %>. Enter an appropriate title and select an option type for which
+    it will belong to. Optionally, click 'Choose File' and pick a file that visually describes the option. Below is the price
+    section. If school, begin, and end are left blank, the price will apply to all schools all the time. When a school is chosen,
+    the price will only apply to that school. The begin and end fields act similarly. To add another price field, click 'Update
+    Option' and click 'Edit' on the following page.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit an option</h4>
+  <p>
+    Click on <%= link_to 'Options', options_path %>. Find the option you want
+    to edit, and to the left, click 'Edit'. Follow the same directions in the
+    'To create an option' section.
+  </p>
+</div>
+<div class="third">
+  <h4>To view an option</h4>
+  <p>
+    Click on <%= link_to 'Options', options_path %>. Find the option you want
+    to view, and to the left, click 'Show'. All the option's information will
+    be displayed.
+  </p>
+</div>
+<hr class="full" />
+<h2 class="full">
+  <a name="print_products">Print Products</a>
+</h2>
+<div class="third">
+  <h4>To create a product</h4>
+  <p>
+    Click on <%= link_to 'New Product', new_product_path %>. Enter an appropriate title and leave slug blank for the system
+    to automatically generate one. Enter a price and a minimum quantity. Prices may have decimals, quantities should not. Click
+    on 'Choose File' to pick an image for this product.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit an product</h4>
+  <p>
+    Click on <%= link_to 'products', products_path %>. Find the product you want
+    to edit, and to the left, click 'Edit'. Follow the same directions in the
+    'To create an product' section.
+  </p>
+</div>
+<div class="third">
+  <h4>To view an product</h4>
+  <p>
+    Click on <%= link_to 'products', products_path %>. Find the product you want
+    to view, and to the left, click 'Show'. All the product's information will
+    be displayed.
+  </p>
+</div>
+<hr class="full" />
+<h2 class="full">Pages</h2>
+<div class="third">
+  <h4>To create a page</h4>
+  <p>
+    Click on <%= link_to 'New Page', new_page_path %>. Enter an appropriate title and leave slug blank to let the system automatically
+    create one. Select a parent page if you want this page to belong to another. In the body, enter html and text.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit a page</h4>
+  <p>
+    Click on <%= link_to 'Pages', pages_path %>. Find the page you wish to edit and click the corresponding 'Edit' link. The instructions
+    are similar to the ones listed under 'To create a page'.
+  </p>
+</div>
+<div class="third">
+  <h4>To view a page</h4>
+  <p>
+    Click on <%= link_to 'Pages', pages_path %>. Find the page you wish to view and click the corresponding 'Show' link. The page will
+    be shown as it would be seen by a user.
+  </p>
+</div>
+<hr class="full" />
+<h2 class="full">Navigation</h2>
+<p class="full">Navigation links are sometimes listed as 'Nav Links'.</p>
+<div class="third">
+  <h4>To create a navigation link</h4>
+  <p>
+    Click on <%= link_to 'New Navigation Link', new_nav_link_path %>. Enter an appropriate title. In the slug field, enter the url
+    for the corresponding page for this link. Select a parent navigation link if you want the link to belong to another link. Select a
+    position for the link, which the links are ordered by relative to each other.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit a navigation link</h4>
+  <p>
+    Click on <%= link_to 'Navigation Links', nav_links_path %>. Find the link you want to edit and click 'Edit' next to it. Follow the
+    same instructions as listed in 'To create a navigation link'.
+  </p>
+</div>
+<div class="third">
+  <h4>To view a navigation link</h4>
+  <p>
+    Click on <%= link_to 'Navigation Links', nav_links_path %>. Find the link you want to view and click 'Show' next to it. All the
+    information about the link will be listed there.
+  </p>
+</div>
+<hr class="full" />
+<h2 class="full">Users</h2>
+<div class="third">
+  <h4>To create a user</h4>
+  <p>
+    Click on <%= link_to 'New User', new_user_path %>. Enter a login, email, password, and password confirmation and select multiple roles
+    for this user to have by holding the 'Shift' key. The 'admin' role can edit and view all aspects of the website so user with caution.
+  </p>
+</div>
+<div class="third">
+  <h4>To edit a user</h4>
+  <p>
+    Click on <%= link_to 'Users', users_path %>. Find the user you wish to edit and click 'Edit' next to it. Follow the instructions under
+    'To create a user'.
+  </p>
+</div>
+<div class="third">
+  <h4>To view a user</h4>
+  <p>
+    Click on <%= link_to 'Users', users_path %>. Find the user you wish to view and click 'view' next to it. All the information regarding
+    the selected user will be listed on this page.
+  </p>
+</div>
+<hr class="full" />
+<h2 class="full">Mass Emailer</h2>
+<div class="third">
+  <h4>To send emails to many people</h4>
+  <p>
+    Click on <%= link_to 'Emailer', mailer_path %>. In the 'Addresses' box, type in the email addresses, each on a separate line. Type an appropriate
+    title. Enter your message in the 'Message' box, which can include HTML. Click 'Start Sending' button to begin. Do not close the window until
+    you get an alert saying the batch is complete.
+  </p>
+</div>

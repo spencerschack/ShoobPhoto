@@ -1,0 +1,96 @@
+<%= form_for @package, :html => {:multipart => true} do |f| %>
+  <% if @package.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>
+
+      <ul>
+      <% @package.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field third">
+      <%= f.label :slug %><br />
+      <%= f.text_field :slug %>
+    </div>
+  </div>
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :package_type_id %><br />
+      <%= f.collection_select :package_type_id, PackageType.all, :id, :slug, :include_blank => true %>
+    </div>
+    <div class="field third">
+      <%= f.label :option_type_ids, 'Option Types' %><br />
+      <% OptionType.all.each do |type| %>
+        <br />
+        <%= label_tag { link_to type.title, type } %>
+        <%= check_box_tag 'package[option_type_ids][]', type.id,
+          @package.option_type_ids.include?(type.id), :class => 'right' %>
+      <% end %>
+      <%= hidden_field_tag 'package[option_type_ids][]', '' %>
+    </div>
+  </div>
+  <div class="third_box">
+    <div class="check_box third">
+      <%= f.label :email_picture, 'Email digital copy of photo?' %>
+      <%= f.check_box :email_picture %>
+    </div>
+    <div class="check_box third">
+      <%= f.label :purchase_id, 'Ask for purchase id?' %>
+      <%= f.check_box :purchase_id %>
+    </div>
+  </div>
+  <hr class="full" />
+  <table class="full">
+    <tr>
+      <th>Price (cents)</th>
+      <th>School</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+      <th>Destroy?</th>
+    </tr>
+    <%= f.fields_for :prices do |p| %>
+    <tr>
+      <td><%= p.text_field :price %></td>
+      <td><%= p.collection_select :school_id, School.all, :id, :title, :include_blank => true %></td>
+      <td><%= p.date_select :begin, :include_blank => true %></td>
+      <td><%= p.date_select :end, :include_blank => true %></td>
+      <td><%= p.check_box :_destroy %></td>
+    </tr>
+    <% end %>
+  </table>
+  <hr class="full" />
+  <table class="full">
+    <tr>
+      <th>Option Type</th>
+      <th>School</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+      <th>Destroy?</th>
+    </tr>
+    <%= f.fields_for :option_assignments do |p| %>
+    <tr>
+      <td><%= p.collection_select :option_type_id, OptionType.all, :id, :title, :include_blank => true %></td>
+      <td><%= p.grouped_collection_select :school_id, SchoolType.all, :schools, :title, :id, :title, :include_blank => true %></td>
+      <td><%= p.date_select :begin, :include_blank => true %></td>
+      <td><%= p.date_select :end, :include_blank => true %></td>
+      <td><%= p.check_box :_destroy %></td>
+    </tr>
+    <% end %>
+  </table>
+  <div class="field full">
+    <%= (@package.image?) ? image_tag(@package.image.url) : f.label(:image) %>
+    <%= f.file_field :image %>
+  </div>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>

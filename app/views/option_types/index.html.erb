@@ -1,0 +1,25 @@
+<h1 class="full"><%= breadcrumbs :admin, :option_types %></h1>
+<hr class="full" />
+<table class="full">
+  <tr>
+    <th>Title</th>
+    <th>Required</th>
+    <th>Multiple Selections</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @option_types.each do |option_type| %>
+  <tr>
+    <td><%= option_type.title %></td>
+    <td><%= option_type.required %></td>
+    <td><%= option_type.multiple %></td>
+    <td><%= link_to 'Show', option_type %></td>
+    <td><%= link_to 'Edit', edit_option_type_path(option_type) %></td>
+    <td><%= link_to 'Destroy', option_type, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<hr class="full" />
+<%= link_to 'New Option type', new_option_type_path, :class => 'full' %>

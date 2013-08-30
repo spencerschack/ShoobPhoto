@@ -1,0 +1,48 @@
+<h1 class="full"><%= breadcrumbs :admin, :package_types, @package_type.title %></h1>
+<hr class="full" />
+<div class="third">
+  <p>
+    <b>Title:</b> <%= @package_type.title %>
+  </p>
+  <p>
+    <b>Slug:</b> <%= @package_type.slug %>
+  </p>
+  <p>
+    <b>Ask for sport level?</b> <%= @package_type.sport_level %>
+  </p>
+</div>
+<div class="third">
+  <p>
+    <b>Schools:</b>
+    <% @package_type.schools.each do |school| %>
+      <%= link_to school.title, school %>, 
+    <% end %>
+  </p>
+  <p>
+    <b>Packages:</b>
+    <% @package_type.packages.each do |package| %>
+      <%= link_to package.slug, package %>, 
+    <% end %>
+  </p>
+</div>
+<p class="third">
+    <%= image_tag(@package_type.image.url) if @package_type.image? %>
+</p>
+<table class="full">
+      <tr>
+        <th>Price (cents)</th>
+        <th>School</th>
+        <th>Begin Date</th>
+        <th>End Date</th>
+      </tr>
+      <% @package_type.prices.each do |price| %>
+      <tr>
+        <td><%= price.price %></td>
+        <td><%= price.school.title if price.school %></td>
+        <td><%= price.begin.to_formatted_s(:short) if price.begin? %></td>
+        <td><%= price.end.to_formatted_s(:short) if price.end? %></td>
+      </tr>
+    <% end %>
+  </table>
+<hr class="full" />
+<%= link_to 'Edit', edit_package_type_path(@package_type), :class => 'full' %>

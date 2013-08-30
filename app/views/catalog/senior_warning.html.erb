@@ -1,0 +1,18 @@
+<h1 class="full">Purchasing Senior Portraits</h1>
+<hr class="full" />
+<div class="third">
+  Before proceeding to our online store please note that the portraits
+  you will be purchasing are those that were photographed at your school or at
+  our studio on a yearbook only day.
+</div>
+<div class="third">
+  This store is not for purchasing senior portraits that were taken at our Modesto location.
+  If you would like to order pictures that were taken in the studio, please make an
+  appointment by calling 1.888.257.4662 or 209.567.0748.
+</div>
+<%= link_to params[:continue] || purchase_pictures_path, :class => 'third' do %>
+  <%= image_tag 'banners/senior_portraits/purchase_portraits/continue.jpg' %>
+<% end %>
+<%= link_to params[:back] || '/senior_portraits', :class => 'third' do %>
+  <%= image_tag 'banners/senior_portraits/purchase_portraits/back.jpg' %>
+<% end %>

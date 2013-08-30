@@ -1,0 +1,18 @@
+#new_job_application {
+  width: 960px;
+  position: relative;
+  overflow: hidden;
+}
+
+  #new_job_application fieldset {
+    position: relative;
+  }
+
+#form_controls {
+  text-align: right;
+}
+
+  #form_controls a {
+    margin-left: 30px;
+    font-weight: bold;
+  }

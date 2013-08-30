@@ -1,0 +1,71 @@
+<h1 class="full">Receipt</h1>
+<p class="third">
+  Thank you for your order, <%= "#{@order.first_name} #{@order.last_name}" %>!
+  An email has been sent to <%= @order.email %>.
+  If you do not receive this email
+  or any of the information on this page is incorrect,
+  please email us at <%= mail_to 'info@shoobphoto.com' %>.
+</p>
+<div class="third">
+  <div>
+    <b>Name:</b> <%= "#{@order.first_name} #{@order.last_name}" %>
+  </div>
+  <div>
+    <b>Phone:</b> <%= @order.phone %>
+  </div>
+  <div>
+    <b>Email:</b> <%= @order.email %>
+  </div>
+  <div>
+    <b>Phone:</b> <%= @order.phone %>
+  </div>
+</div>
+<div class="third">
+  <div>
+    <b>Address:</b>
+    <%= "#{@order.address} #{@order.city}, #{@order.state} #{@order.zip_code}" %>
+  </div>
+  <div>
+    <b>Paid with:</b>
+    <%= "#{@order.card_type.humanize}, which expires on #{@order.card_expires_on}" %>
+  </div>
+  <div>
+    <b>Order on:</b>
+    <%= Time.parse(@order.created_at.to_s).localtime.strftime('%B %e, %Y at %I:%M %P') %>
+  </div>
+  <div>
+    <b>Total:</b>
+    <%= number_to_currency @order.price %>
+  </div>
+</div>
+<h2 class="full">Order summary:</h2>
+<% @order.line_items.each do |line_item| %>
+  <table class="full">
+    <tr>
+    <% line_item.data.keys.each do |header| %>
+      <th><%= header.to_s.humanize %></th>
+    <% end %>
+    <% unless line_item.file_upload.nil? %>
+      <th>File</th>
+    <% end %>
+      <th class="fixed_width">Price</th>
+    </tr>
+    <tr>
+      <% line_item.data.values.each do |value| %>
+        <% if value.is_a?(Hash) || value.is_a?(Array) %>
+          <td><%= value.values.join('<br />').html_safe %></td>
+        <% else %>
+          <td><%= value %></td>
+        <% end %>
+      <% end %>
+      <% unless line_item.file_upload.nil? %>
+        <td><%= link_to line_item.file_upload.file.url do %>
+          <%= image_tag line_item.file_upload.file.url(:thumb) %>
+        <% end %></td>
+      <% end %>
+        <td class="fixed_width"><%= number_to_currency line_item.price %></td>
+    </tr>
+  </table>
+  <hr class="full" />
+<% end %>
+<h3 class="full align_right">Total: <%= number_to_currency @order.price %></h3>

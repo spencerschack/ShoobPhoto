@@ -1,0 +1,40 @@
+<% form_for @user do |f| %>
+<% if @user.errors.any? %>  
+  <div id="errors">  
+    <ul>  
+    <% @user.errors.full_messages.each do |msg| %>  
+      <li><%= msg %></li>  
+    <% end %>  
+    </ul>  
+  </div>  
+<% end %>
+
+<div class="fourth_box">
+  <div class="field fourth">
+    <%= f.label :login %>  
+    <%= f.text_field :login %>  
+  </div>
+  <div class="field fourth">
+    <%= f.label :email %>  
+    <%= f.text_field :email %>  
+  </div>
+</div>
+<div class="fourth_box">
+  <div class="field fourth">
+    <%= f.label :password %>  
+    <%= f.password_field :password %>  
+  </div>
+  <div class="field fourth">
+    <%= f.label :password_confirmation %>  
+    <%= f.password_field :password_confirmation %>  
+  </div>
+</div>
+<div class="fourth field">
+  <%= f.label :role_ids, 'Roles' %>
+  <%= f.collection_select :role_ids, Role.all, :id, :title, {}, :multiple => true %>
+</div>
+<hr class="full" />
+<div class="actions half">
+  <%= f.submit 'Submit' %>
+</div>
+<% end %> 

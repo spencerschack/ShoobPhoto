@@ -1,0 +1,15 @@
+<h1 class="full"><%= breadcrumbs :admin, :users, @user.login %></h1>
+<hr class="full" />
+<div class="full">
+  <p>
+    <b>Login:</b> <%= @user.login %>
+  </p>
+  <p>
+    <b>Email:</b> <%= @user.email %>
+  </p>
+  <p>
+    <b>Roles:</b> <%= @user.roles.map(&:title).join(', ') %>
+  </p>
+</div>
+<hr class="full" />
+<%= link_to 'Edit', edit_user_path(@user), :class => 'full' %>

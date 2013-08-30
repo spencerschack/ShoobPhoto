@@ -1,0 +1,58 @@
+<h1 class="full"><%= breadcrumbs :admin, :packages, @package.title %></h1>
+<hr class="full" />
+<div class="fourth">
+  <p>
+    <b>Title:</b> <%= @package.title %>
+  </p>
+  <p>
+    <b>Slug:</b> <%= @package.slug %>
+  </p>
+  <p>
+    <b>Package type:</b> <%= @package.package_type.title %>
+  </p>
+</div>
+<div class="fourth">
+  <p>
+    <b>Email digital copy of photo?</b> <%= @package.email_picture %>
+  </p>
+  <p>
+    <b>Ask for purchase id?:</b> <%= @package.purchase_id %>
+  </p>
+</div>
+<div class="half_box">
+  <table class="half">
+      <tr>
+        <th>Price (cents)</th>
+        <th>School</th>
+        <th>Begin Date</th>
+        <th>End Date</th>
+      </tr>
+      <% @package.prices.each do |price| %>
+      <tr>
+        <td><%= price.price %></td>
+        <td><%= price.school.title if price.school %></td>
+        <td><%= price.begin.to_formatted_s(:short) if price.begin? %></td>
+        <td><%= price.end.to_formatted_s(:short) if price.end? %></td>
+      </tr>
+    <% end %>
+  </table>
+  <table class="half">
+      <tr>
+        <th>Option Type</th>
+        <th>School</th>
+        <th>Begin Date</th>
+        <th>End Date</th>
+      </tr>
+      <% @package.option_assignments.each do |option| %>
+      <tr>
+        <td><%= option.option_type.title if option.option_type %></td>
+        <td><%= option.school.title if option.school %></td>
+        <td><%= option.begin.to_formatted_s(:short) if option.begin? %></td>
+        <td><%= option.end.to_formatted_s(:short) if option.end? %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<%= content_tag :div, image_tag(@package.image.url), :class => 'full banner' if @package.image? %>
+<hr class="full" /  >
+<%= link_to 'Edit', edit_package_path(@package), :class => 'full' %>

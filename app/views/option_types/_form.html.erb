@@ -1,0 +1,83 @@
+<%= form_for(@option_type) do |f| %>
+  <% if @option_type.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@option_type.errors.count, "error") %> prohibited this option_type from being saved:</h2>
+
+      <ul>
+      <% @option_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="check_box third">
+      <%= f.label :required %>
+      <%= f.check_box :required %>
+    </div>
+    <div class="check_box third">
+      <%= f.label :multiple, 'Allow multiple selections' %>
+      <%= f.check_box :multiple %>
+    </div>
+  </div>
+  <div class="field third">
+    <%= f.label :package_ids, 'Packages' %>
+    <% Package.all.each do |package| %>
+      <br />
+      <%= link_to package do %>
+        <% if package.package_type %>
+          <%= package.package_type.slug %> <%= package.slug %>
+        <% else %>
+          (No Package Type) <%= package.slug %>
+        <% end %>
+      <% end %>
+      <%= check_box_tag 'option_type[package_ids][]', package.id,
+        @option_type.package_ids.include?(package.id), :class => 'right' %>
+    <% end %>
+    <%= hidden_field_tag 'option_type[package_ids][]', '' %>
+  </div>
+  <div class="field third">
+    <%= f.label :option_ids, 'Options' %>
+    <% Option.all.each do |option| %>
+      <br />
+      <%= link_to option do %>
+        <% if option.option_type %>
+          <%= option.option_type.title %> <%= option.title %>
+        <% else %>
+          (No Option Type) <%= option.title %>
+        <% end %>
+      <% end %>
+      <%= check_box_tag 'option_type[option_ids][]', option.id,
+        @option_type.option_ids.include?(option.id), :class => 'right' %>
+    <% end %>
+    <%= hidden_field_tag 'option_type[package_ids][]', '' %>
+  </div>
+  <hr class="full" />
+  <table class="full nested_fields">
+    <tr>
+      <th>Package</th>
+      <th>School</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+      <th>Destroy?</th>
+    </tr>
+    <%= f.fields_for :option_assignments do |p| %>
+    <tr>
+      <td><%= p.select :package_id, Package.all.map{|package| ["#{package.package_type ? package.package_type.title : '(No package type)'} #{package.title}", package.id]}, :include_blank => true %></td>
+      <td><%= p.grouped_collection_select :school_id, SchoolType.all, :schools, :title, :id, :title, :include_blank => true %></td>
+      <td><%= p.date_select :begin, :include_blank => true %></td>
+      <td><%= p.date_select :end, :include_blank => true %></td>
+      <td><%= p.check_box :_destroy %></td>
+    </tr>
+    <% end %>
+  </table>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>

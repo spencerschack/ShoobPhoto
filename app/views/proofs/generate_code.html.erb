@@ -1,0 +1,19 @@
+<h1 class="full"><%= breadcrumbs :admin, :proofs, :generate_code %></h1>
+<hr class=="full" />
+<%= form_for @code_gen, :url => '' do |f| %>
+  <div class="fourth field">
+    <%= f.label :student_id, 'Student ID' %>
+    <%= f.text_field :student_id %>
+  </div>
+  <div class="fourth field">
+    <%= f.label :school_id %>
+    <%= f.collection_select :school_id, SchoolType.find_by_title('High').schools, :id, :title%>
+  </div>
+  <div class="half field">
+    <h2><%= @code_gen.code %></h2>
+  </div>
+  <hr class="full" />
+  <div class="actions full">
+    <%= f.submit 'Generate Code' %>
+  </div>
+<% end %>

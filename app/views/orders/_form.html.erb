@@ -1,0 +1,71 @@
+<%= form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="field third">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="field third">
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+    </div>
+    <div class="field third">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+  </div>
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+    </div>
+    <div class="field third">
+      <%= f.label :city %>
+      <%= f.text_field :city %>
+    </div>
+    <div class="field third">
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code %>
+    </div>
+    <div class="field third">
+      <%= f.label :state %>
+      <%= f.text_field :state %>
+    </div></div>
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :card_type %>
+      <%= f.text_field :card_type %>
+    </div>
+    <div class="check_box third">
+      <%= f.label :card_expires_on %><br />
+      <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
+    </div>
+    <div class="field third">
+      <%= f.label :price %>
+      <%= f.text_field :price %>
+    </div>
+    <div class="check_box third">
+      <%= f.label :processed, 'Processed?' %>
+      <%= f.check_box :processed %>
+    </div>
+  </div>
+  <hr class="full" />
+  <div class="half actions">
+    <%= f.submit %>
+  </div>
+<% end %>

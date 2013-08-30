@@ -1,0 +1,99 @@
+<% @stylesheets_print << 'orders/index_print' %>
+
+<h1 class="half"><%= breadcrumbs :admin, :orders, "Order #{@order.id}" %></h1>
+<h3 class="half align_right"><i><%= @order.processed ? 'Processed' : 'Not processed' %></i></h3>
+<hr class="full" />
+<div class="third">
+  <p>
+    <b>First name:</b>
+    <%= @order.first_name %>
+  </p>
+  <p>
+    <b>Last name:</b>
+    <%= @order.last_name %>
+  </p>
+  <p>
+    <b>Phone:</b>
+    <%= @order.phone %>
+  </p>
+  <p>
+    <b>Email:</b>
+    <%= @order.email %>
+  </p>
+</div>
+<div class="third">
+  <p>
+    <b>Address:</b>
+    <%= @order.address %>
+  </p>
+  <p>
+    <b>City:</b>
+    <%= @order.city %>
+  </p>
+  <p>
+    <b>Zip code:</b>
+    <%= @order.zip_code %>
+  </p>
+  <p>
+    <b>State:</b>
+    <%= @order.state %>
+  </p>
+</div>
+<div class="third">
+  <p>
+    <b>Card type:</b>
+    <%= @order.card_type %>
+  </p>
+  <p>
+    <b>Card expires on:</b>
+    <%= @order.card_expires_on %>
+  </p>
+  <p>
+    <b>Price:</b>
+    <%= number_to_currency @order.price %>
+  </p>
+  <p>
+    <b>Order Number:</b>
+    <%= @order.id %>
+  </p>
+</div>
+<div class="full field" />
+  <%= link_to 'Edit', edit_order_path(@order) %>
+</div>
+<hr class="full" />
+<h2 class="full">Order Summary:</h2>
+<% @order.line_items.each do |line_item| %>
+<table class="full">
+  <tr>
+    <% line_item.data.keys.each do |header| %>
+      <th><%= header.to_s.humanize %></th>
+    <% end %>
+    <% unless line_item.file_upload.nil? %>
+      <th>File</th>
+    <% end %>
+      <th class="fixed_width">Price</th>
+    </tr>
+    <tr>
+      <% line_item.data.values.each do |value| %>
+        <% if value.is_a?(Hash) || value.is_a?(Array) %>
+          <td><%= value.values.join('<br />').html_safe %></td>
+        <% else %>
+          <td><%= value %></td>
+        <% end %>
+      <% end %>
+      <% unless line_item.file_upload.nil? %>
+        <td><%= link_to line_item.file_upload.file.url do %>
+          <%= image_tag line_item.file_upload.file.url(:thumb) %>
+        <% end %></td>
+      <% end %>
+        <td class="fixed_width"><%= number_to_currency line_item.price %></td>
+    </tr>
+</table>
+<hr class="full" />
+<% end %>
+<%= form_for @order do |f| %>
+  <%= f.hidden_field :processed, :value => !@order.processed %>
+  <%= f.submit "Mark as #{'not ' if @order.processed}processed", :class => 'sixth' %>
+<% end %>
+<%= link_to 'Resend receipt', order_resend_receipt_path, :class => 'sixth' %>
+<h3 class="two_thirds align_right">Total: <%= number_to_currency @order.price %></h3>

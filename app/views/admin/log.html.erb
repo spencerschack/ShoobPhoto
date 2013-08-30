@@ -1,0 +1,17 @@
+<h1 class="half"><%= breadcrumbs :admin, :log %></h1>
+<ul class="navigation">
+  <li><%= link_to 'Production', '#production' %></li>
+  <li><%= link_to 'Development', '#development' %></li>
+</ul>
+<div class="full">
+  <hr />
+  <h2><%= link_to 'Production Messages', {}, :id => 'production' %></h2>
+  <% @production_messages.each do |msg| %>
+    <p><pre><%= msg %></pre></p>
+  <% end %>
+  <hr />
+  <h2><%= link_to 'Development Messages', {}, :id => 'development' %></h2>
+  <% @development_messages.each do |msg| %>
+    <p><pre><%= msg %></pre></p>
+  <% end %>
+</div>

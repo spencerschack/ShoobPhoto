@@ -1,0 +1,14 @@
+<h1 class="two_thirds"><%= @school.title %></h1>
+<h1 class="third align_right"><%= link_to 'Cart', cart_path %></h1>
+<hr class="full" />
+<% @package_types.each do |type| %>
+  <div class="fourth">
+    <% link = "#{purchase_pictures_path}/#{@school.slug}/#{type.slug}" %>
+    <% link = "/senior_portraits/purchase_portraits?back=#{purchase_pictures_path}/#{@school.slug}&continue=" + link if type.slug == 'senior_portraits' %>
+    <%= link_to link do %>
+      <%= image_tag type.image.url if type.image? %>
+      <h2><%= type.title %></h2>
+    <% end %>
+  </div>
+<% end %>
+<hr class="full" />

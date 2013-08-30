@@ -1,0 +1,7 @@
+<%= "#{@args[:first_name]} #{@args[:last_name]}" %> has submitted a job application to ShoobPhoto.com
+
+<% @args.each do |key, value| %>
+  <% unless value.blank? %>
+    <%= key.humanize %>: <%= value %>
+  <% end %>
+<% end %>

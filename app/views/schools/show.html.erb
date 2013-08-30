@@ -1,0 +1,24 @@
+<h1 class="full"><%= breadcrumbs :admin, :schools, @school.title %></h1>
+<hr class="full" />
+<div class="full">
+  <p>
+    <b>Title:</b> <%= @school.title %>
+  </p>
+  <p>
+    <b>Slug:</b> <%= @school.slug %>
+  </p>
+  <p>
+    <b>Package Types:</b>
+    <% @school.package_types.each do |type| %>
+      <%= link_to type.slug, type %>, 
+    <% end %>
+  </p>
+  <p>
+    <b>School type:</b> <%= @school.school_type.title %>
+  </p>
+  <p>
+    <b>Ask for teacher:</b> <%= @school.teacher %>
+  </p>
+</div>
+<hr class="full" />
+<%= link_to 'Edit', edit_school_path(@school), :class => 'full' %>

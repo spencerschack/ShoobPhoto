@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  option_type_id: 1
+  package_id: 1
+  school_id: 1
+  begin: 2011-04-11 15:30:52
+  end: 2011-04-11 15:30:52
+
+two:
+  option_type_id: 1
+  package_id: 1
+  school_id: 1
+  begin: 2011-04-11 15:30:52
+  end: 2011-04-11 15:30:52

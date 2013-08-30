@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  price: 1
+  school_id: 1
+  begin: 2011-03-15 16:15:14
+  end: 2011-03-15 16:15:14
+
+two:
+  price: 1
+  school_id: 1
+  begin: 2011-03-15 16:15:14
+  end: 2011-03-15 16:15:14

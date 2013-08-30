@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  cart_id: 1
+  school_id: 1
+  package_id: 1
+  student_first_name: MyString
+  student_last_name: MyString
+  student_grade: MyString
+  student_teacher: MyString
+  student_sport_level: MyString
+  price: 1
+
+two:
+  cart_id: 1
+  school_id: 1
+  package_id: 1
+  student_first_name: MyString
+  student_last_name: MyString
+  student_grade: MyString
+  student_teacher: MyString
+  student_sport_level: MyString
+  price: 1

@@ -1,0 +1,62 @@
+<h1 class="full"><%= breadcrumbs :admin, :option_types, @option_type.title %></h1>
+<hr class="full" />
+<div class="third">
+  <p>
+    <b>Title:</b> <%= @option_type.title %>
+  </p>
+  <p>
+    <b>Packages:</b>
+    <% @option_type.packages.each do |package| %>
+      <%= link_to package do %>
+        <% if package.package_type %>
+          <%= package.package_type.slug %> <%= package.slug %>
+        <% else %>
+          (No Package Type) <%= package.slug %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </p>
+</div>
+<div class="third">
+  <p>
+    <b>Options:</b>
+    <% @option_type.options.each do |option| %>
+      <%= link_to option do %>
+        <% if option.option_type %>
+          <%= option.option_type.title %> <%= option.title %>
+        <% else %>
+          (No Option Type) <%= option.title %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </p>
+</div>
+<div class="third">
+  <p>
+    <b>Required</b> <%= @option_type.required %>
+  </p>
+  <p>
+    <b>Multiple selections</b> <%= @option_type.multiple %>
+  </p>
+</div>
+<hr class="full" />
+  <table class="full">
+    <tr>
+      <th>Package</th>
+      <th>School</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+      <th>Destroy?</th>
+    </tr>
+    <% @option_type.option_assignments do |price| %>
+    <tr>
+      <td><%= price.collection_select :package_id, Package.all, :id, :title, :include_blank => true %></td>
+      <td><%= price.collection_select :school_id, School.all, :id, :title, :include_blank => true %></td>
+      <td><%= price.date_select :begin, :include_blank => true %></td>
+      <td><%= price.date_select :end, :include_blank => true %></td>
+      <td><%= price.check_box :_destroy %></td>
+    </tr>
+    <% end %>
+  </table>
+<hr class="full" />
+<%= link_to 'Edit', edit_option_type_path(@option_type), :class => 'full' %>

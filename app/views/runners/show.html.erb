@@ -1,0 +1,69 @@
+<h1 class="full"><%= breadcrumbs :admin, :runners, "#{@runner.name.titleize}" %></h1>
+<hr class="full" />
+<div class="third">
+  <p>
+    <b>First name:</b>
+    <%= @runner.first_name %>
+  </p>
+  <p>
+    <b>Last name:</b>
+    <%= @runner.last_name %>
+  </p>
+  <p>
+    <b>Gender:</b>
+    <%= @runner.gender %>
+  </p>
+  <p>
+    <b>Birthday:</b>
+    <%= @runner.birthday %>
+  </p>
+</div>
+<div class="third">
+  <p>
+    <b>Shirt size:</b>
+    <%= @runner.shirt_size %>
+  </p>
+  <p>
+    <b>Email:</b>
+    <%= @runner.email %>
+  </p>
+  <p>
+    <b>Phone:</b>
+    <%= @runner.phone %>
+  </p>
+</div>
+<div class="third">
+  <p>
+    <b>Address:</b>
+    <%= @runner.address %>
+  </p>
+  <p>
+    <b>City:</b>
+    <%= @runner.city %>
+  </p>
+  <p>
+    <b>State:</b>
+    <%= @runner.state %>
+  </p>
+  <p>
+    <b>Zip code:</b>
+    <%= @runner.zip_code %>
+  </p>
+</div>
+<hr class="full" />
+<table class="full">
+  <tr>
+    <th>Race</th>
+    <th>Distance</th>
+    <th>Time</th>
+  </tr>
+<% @runner.results.each do |result| %>
+  <tr>
+    <td><%= result.race.name %></td>
+    <td><%= result.distance %></td>
+    <td><%= result.time.try(:strftime, '%H:%M:%S') %></td>
+  </tr>
+<% end %>
+</table>
+<hr class="full" />
+<%= link_to 'Edit', edit_runner_path(@runner), :class => 'full' %>

@@ -1,0 +1,39 @@
+<%= form_for @product, :html => { :multipart => true } do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field fourth">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :slug, 'Slug (leave blank to automatically set)' %>
+    <%= f.text_field :slug %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :price, 'Price per unit (in cents)' %>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :minimum_quantity %>
+    <%= f.text_field :minimum_quantity %>
+  </div>
+  <div class="field full">
+    <%= f.label :image %>
+    <%= image_tag @product.image.url if @product.image? %>
+    <%= f.file_field :image %>
+  </div>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>

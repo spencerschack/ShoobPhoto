@@ -1,0 +1,41 @@
+Shoob Photography
+
+Receipt
+
+Thank you for your order, <%= "#{@order.first_name} #{@order.last_name}" %>!
+
+Name: <%= "#{@order.first_name} #{@order.last_name}" %>
+
+Phone: <%= @order.phone %>
+
+Email: <%= @order.email %>
+
+Phone: <%= @order.phone %>
+
+Address: <%= "#{@order.address} #{@order.city}, #{@order.state} #{@order.zip_code}" %>
+
+Paid with: <%= "#{@order.card_type.humanize}, which expires on #{@order.card_expires_on}" %>
+
+Order on: <%= @order.created_at.to_formatted_s(:long_ordinal) %>
+
+Total: <%= number_to_currency @order.price %>
+
+<%= @pictures.join("\n") unless @pictures.blank? %>
+
+Order Number: <%= @order.id %>
+
+Order summary:
+
+<% @order.line_items.each do |line_item| %>
+<% line_item.data.each do |key, value| %>
+<% if value.is_a?(Hash) || value.is_a?(Array) %>
+<%= key.to_s.humanize %>: <% value.values.join(', ') %>
+<% else %>
+<%= key.to_s.humanize %>: <%= value.to_s.humanize %>
+<% end %>
+<% end %>
+Price: <%= number_to_currency line_item.price %>
+
+<% end %>
+
+Total: <%= number_to_currency @order.price %>

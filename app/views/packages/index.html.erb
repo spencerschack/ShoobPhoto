@@ -1,0 +1,29 @@
+<h1 class="full"><%= breadcrumbs :admin, :packages %></h1>
+<hr class="full" />
+<table class="full">
+  <tr>
+    <th>Package type</th>
+    <th>Title</th>
+    <th>Slug</th>
+    <th>Email photo?</th>
+    <th>Ask for purchase id?</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @packages.each do |package| %>
+  <tr>
+    <td><%= package.package_type.slug unless package.package_type.nil? %></td>
+    <td><%= package.title %></td>
+    <td><%= package.slug %></td>
+    <td><%= package.email_picture %></td>
+    <td><%= package.purchase_id %></td>
+    <td><%= link_to 'Show', package %></td>
+    <td><%= link_to 'Edit', edit_package_path(package) %></td>
+    <td><%= link_to 'Destroy', package, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<hr class="full" />
+<%= link_to 'New Package', new_package_path, :class => 'full' %>

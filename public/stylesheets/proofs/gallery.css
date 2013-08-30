@@ -1,0 +1,10 @@
+.square {
+  height: 130px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.square span {
+	position: relative;
+	top: 10px;
+}

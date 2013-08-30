@@ -1,0 +1,29 @@
+<h1 class="full"><%= breadcrumbs :admin, :options, @option.title %></h1>
+<hr class="full" />
+<div class="third">
+  <p>
+    <b>Title:</b> <%= @option.title %>
+  </p>
+  <p>
+    <b>Option type:</b> <%= @option.option_type.title unless @option.option_type.nil? %>
+  </p>
+  <%= content_tag :p, image_tag(@option.image.url) if @option.image? %>
+</div>
+<table class="two_thirds">
+    <tr>
+      <th>Price (cents)</th>
+      <th>School</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+    </tr>
+    <% @option.prices.each do |price| %>
+    <tr>
+      <td><%= price.price %></td>
+      <td><%= price.school.title if price.school %></td>
+      <td><%= price.begin %></td>
+      <td><%= price.end %></td>
+    </tr>
+  <% end %>
+</table>
+<hr class="full" />
+<%= link_to 'Edit', edit_option_path(@option), :class => 'full' %>

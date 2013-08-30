@@ -1,0 +1,11 @@
+<% if @page.title? %>
+	<h1 class="fourth"><%= link_to_unless_current @page.root.title, @page.root.path %></h1>
+	<ul class="navigation">
+    <% @links.sort_by(&:position).each do |link| %>
+      <li<%= request.fullpath.split('/')[2] == link.slug ? " class='current'" : '' %>>
+        <%= link_to link.title, link.path %>
+      </li>
+    <% end %>
+	</ul>
+<% end %>
+<%= raw @page.body %>

@@ -1,0 +1,22 @@
+<h1 class="full"><%= breadcrumbs :admin, :products, @product.title %></h1>
+<hr class="full" />
+<div class="full">
+  <p>
+    <b>Title:</b> <%= @product.title %>
+  </p>
+  <p>
+    <b>Slug:</b> <%= @product.slug %>
+  </p>
+  <p>
+    <b>Price:</b> <%= @product.price %>
+  </p>
+  <p>
+    <b>Minimum quantity:</b> <%= @product.minimum_quantity %>
+  </p>
+  <p>
+    <b>File:</b>
+    <%= image_tag @product.image.url if @product.image? %>
+  </p>
+</div>
+<hr class="full" />
+<%= link_to 'Edit', edit_product_path(@product), :class => 'full' %>

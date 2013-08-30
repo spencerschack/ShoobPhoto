@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  slug: MyText
+  school_type_id: 1
+
+two:
+  title: MyString
+  slug: MyText
+  school_type_id: 1

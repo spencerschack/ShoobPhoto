@@ -1,0 +1,58 @@
+<h1 class="half"><%= breadcrumbs :admin, :orders %></h1>
+<ul class="navigation">
+  <li<%= " class='current'" if params[:search].nil? %>><%= link_to('View all', orders_path) %></li>
+  <li<%= " class='current'" unless params[:search].nil? %>><%= link_to('Search', :search => '') %></li>
+</ul>
+<%= form_tag orders_path, :method => 'GET', :class => 'search' do %>
+  <div class="field three_fourths">
+    <%= text_field_tag :search, params[:search].blank? ? 'Search Orders' : params[:search], :rel => 'Search Orders' %>
+  </div>
+  <div class="field fourth">
+    <%= submit_tag 'Search Orders', :name => nil %>
+  </div>
+<% end %>
+<hr class="full" />
+<%= link_to 'Download CSV File by Orders', orders_path(:format => 'csv', :search => params[:search]), :class => 'half' %>
+<%= link_to 'Download CSV File by Students', orders_path(:format => 'csv', :search => params[:search], :context => 'students'), :class => 'half' %>
+<% if @orders.any? %>
+<table class="full">
+  <tr>
+    <th>Order Number</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Card type</th>
+    <th>Card expires on</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>Zip code</th>
+    <th>State</th>
+    <th>Price</th>
+    <th>Processed?</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @orders.each do |order| %>
+    <tr<%= order.processed ? " class='greyed'" : '' %>>
+      <td><%= order.id %></td>
+      <td><%= order.first_name %></td>
+      <td><%= order.last_name %></td>
+      <td><%= order.card_type %></td>
+      <td><%= order.card_expires_on %></td>
+      <td><%= order.phone %></td>
+      <td><%= order.email %></td>
+      <td><%= order.address %></td>
+      <td><%= order.city %></td>
+      <td><%= order.zip_code %></td>
+      <td><%= order.state %></td>
+      <td><%= number_to_currency order.price %></td>
+      <td><%= order.processed ? 'Yes' : 'No' %></td>
+      <td><%= link_to 'Show', order %></td>
+      <td><%= link_to 'Edit', edit_order_path(order) %></td>
+    </tr>
+  <% end %>
+</table>
+<% else %>
+  <em class="full banner">No orders were found for '<%= params[:search] %>'</em>
+<% end %>

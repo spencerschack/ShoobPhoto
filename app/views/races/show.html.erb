@@ -1,0 +1,10 @@
+<h1 class="full"><%= breadcrumbs :admin, :races, @race.name %></h1>
+<hr class="full" />
+<p class="third">
+  <b>Name:</b> <%= @race.name %>
+</p>
+<p class="third">
+  <b>Date:</b> <%= @race.date %>
+</p>
+<hr class="full" />
+<%= link_to 'Edit', edit_race_path(@race), :class => 'full' %>

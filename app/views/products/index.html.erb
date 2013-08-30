@@ -1,0 +1,27 @@
+<h1 class="full"><%= breadcrumbs :admin, :products %></h1>
+<hr class="full" />
+<table class="full">
+  <tr>
+    <th>Title</th>
+    <th>Slug</th>
+    <th>Price</th>
+    <th>Minimum quantity</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @products.each do |product| %>
+  <tr>
+    <td><%= product.title %></td>
+    <td><%= product.slug %></td>
+    <td><%= product.price %></td>
+    <td><%= product.minimum_quantity %></td>
+    <td><%= link_to 'Show', product %></td>
+    <td><%= link_to 'Edit', edit_product_path(product) %></td>
+    <td><%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<hr class="full" />
+<%= link_to 'New Product', new_product_path, :class => 'full' %>

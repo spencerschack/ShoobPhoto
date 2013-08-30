@@ -1,0 +1,76 @@
+<h1>Shoob Photography</h1>
+<h1>Receipt</h1>
+<p>
+  Thank you for your order, <%= "#{@order.first_name} #{@order.last_name}" %>!
+</p>
+<div>
+  <div>
+    <b>Name:</b> <%= "#{@order.first_name} #{@order.last_name}" %>
+  </div>
+  <div>
+    <b>Phone:</b> <%= @order.phone %>
+  </div>
+  <div>
+    <b>Email:</b> <%= @order.email %>
+  </div>
+  <div>
+    <b>Phone:</b> <%= @order.phone %>
+  </div>
+</div>
+<br />
+<div>
+  <div>
+    <b>Address:</b>
+    <%= "#{@order.address} #{@order.city}, #{@order.state} #{@order.zip_code}" %>
+  </div>
+  <div>
+    <b>Paid with:</b>
+    <%= "#{@order.card_type.humanize}, which expires on #{@order.card_expires_on}" %>
+  </div>
+  <div>
+    <b>Order on:</b>
+    <%= Time.parse(@order.created_at.to_s).localtime.strftime('%B %e, %Y at %I:%M %P') %>
+  </div>
+  <div>
+    <b>Total:</b>
+    <%= number_to_currency @order.price %>
+  </div>
+</div>
+<%= content_tag :p, @pictures.join("\n") unless @pictures.blank? %>
+<p>
+  <b>Order Number:</b>
+  <%= @order.id %>
+</p>
+<h2>Order summary:</h2>
+<% @order.line_items.each do |line_item| %>
+  <table>
+    <tr>
+    <% line_item.data.keys.each do |header| %>
+      <th><%= header.to_s.humanize %></th>
+    <% end %>
+    <% unless line_item.file_upload.nil? %>
+      <th>File</th>
+    <% end %>
+      <th>Price</th>
+    </tr>
+    <tr>
+      <% line_item.data.values.each do |value| %>
+        <% if value.is_a?(Hash) || value.is_a?(Array) %>
+          <td><%= value.values.join('<br />').html_safe %></td>
+        <% else %>
+          <td><%= value %></td>
+        <% end %>
+      <% end %>
+      <% unless line_item.file_upload.nil? %>
+        <td><%= link_to line_item.file_upload.file.url do %>
+          <%= image_tag line_item.file_upload.file.url(:thumb) %>
+        <% end %></td>
+      <% end %>
+        <td><%= number_to_currency line_item.price %></td>
+    </tr>
+  </table>
+  <hr />
+<% end %>
+<h3>Total: <%= number_to_currency @order.price %></h3>
+<br />
+<%= image_tag "http://shoobphoto.com/barcode/#{@order.id}", :alt => "Order Number: #{@order.id}" %>

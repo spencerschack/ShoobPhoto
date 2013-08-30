@@ -1,0 +1,62 @@
+<% @javascripts << 'runners/import' %>
+
+<h1 class="full"><%= breadcrumbs :admin, :runners, :import %></h1>
+<%= form_for :runner_import, :html => { :id => 'runner_import' } do |f| %>
+  <div id="step_one">
+    <p class="field fourth">
+      Copy and paste data from excel sheet, without headers, into the box to the right. Select the race you wish to import these runners into.
+    </p>
+    <div class="field half">
+      <%= f.text_area :data %>
+    </div>
+    <div class="fourth_box">
+      <div class="fourth field">
+        <%= f.label :race_id %>
+        <%= f.collection_select :race_id, Race.all, :id, :name, :include_blank => true %>
+      </div>
+      <div class="fourth field">
+        <%= f.label :distance %>
+        <%= f.text_field :distance %>
+      </div>
+      <div class="fourth check_box">
+        <%= f.label :shadowchase, 'Are these runners Shadowchase members?' %>
+        <%= f.check_box :shadowchase %>
+      </div>
+      <div class="field fourth">
+        <%= f.submit 'Begin Import' %>
+      </div>
+    </div>
+  </div>
+  <div id="step_two">
+    <div class="field half">
+      Now select which columns you would like to import to. Leave blank to discard.
+    </div>
+    <div class="field half">
+      <%= f.submit 'Upload Records' %>
+    </div>
+    <hr class="full">
+    <table id="runner_import_display" class="full">
+      <tr>
+        <th><%= f.select :columns, (Runner.column_names - ['created_at', 'updated_at', 'id'] + ['distance']).map{|c| [c.titleize, c]}, :include_blank => true %></th>
+      </tr>
+    </table>
+  </div>
+  <div id="step_three">
+    <div class="full">
+      <hr />
+      <h3>Resolve</h3>
+      <div class="resolve"></div>
+    </div>
+    <div class="full">
+      <hr />
+      <h3>Imported</h3>
+      <div class="imported"></div>
+    </div>
+    <div class="full">
+      <hr />
+      <h3>Updated</h3>
+      <div class="updated"></div>
+    </div>
+    <hr class="full" />
+  </div>
+<% end %>

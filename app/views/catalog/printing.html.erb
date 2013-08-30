@@ -1,0 +1,14 @@
+<h1 class="half">Printing Products</h1>
+<h1 class="half align_right"><%= link_to 'Cart', cart_path %></h1>
+<img src="/images/banners/print/print.jpg" class="banner full" />
+<% @products.in_groups_of(3, false).each do |row| %>
+  <% row.each do |product| %>
+    <div class="third">
+      <%= link_to "#{printing_path}/#{product.slug}" do %>
+        <%= image_tag product.image.url if product.image? %>
+        <h2><%= "#{product.title} - #{number_to_currency product.price} each" %></h2>
+      <% end %>
+    </div>
+  <% end %>
+  <hr class="full" />
+<% end %>

@@ -1,0 +1,26 @@
+<h1 class="full"><%= breadcrumbs :admin, :nav_links %></h1>
+<hr class="full" />
+<table class="full">
+  <tr>
+    <th>Title</th>
+    <th>Slug</th>
+    <th>Position</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% render_table_rows NavLink.arrange, :sort => :position do |nav_link, child| %>
+  <tr>
+    <td><%= "#{'-- '*nav_link.level}#{nav_link.title}" %></td>
+    <td><%= nav_link.slug %></td>
+    <td><%= nav_link.position %></td>
+    <td><%= link_to 'Show', nav_link %></td>
+    <td><%= link_to 'Edit', edit_nav_link_path(nav_link) %></td>
+    <td><%= link_to 'Destroy', nav_link, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+  <%= child %>
+<% end %>
+</table>
+<hr class="full" />
+<%= link_to 'New Nav link', new_nav_link_path, :class => 'full' %>

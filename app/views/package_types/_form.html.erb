@@ -1,0 +1,76 @@
+<%= form_for @package_type, :html => {:multipart => true} do |f| %>
+  <% if @package_type.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@package_type.errors.count, "error") %> prohibited this package_type from being saved:</h2>
+
+      <ul>
+      <% @package_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field third">
+      <%= f.label :slug %><br />
+      <%= f.text_field :slug %>
+    </div>
+    <div class="check_box third">
+      <%= f.label :sport_level, 'Ask for sport level?' %>
+      <%= f.check_box :sport_level %>
+    </div>
+    <div class="field third">
+      <%= f.label :school_ids, 'Schools' %>
+      <% School.all.each do |school| %>
+        <br />
+        <%= label_tag { link_to school.title, school } %>
+        <%= check_box_tag 'package_type[school_ids][]', school.id,
+          @package_type.school_ids.include?(school.id), :class => 'right' %>
+      <% end %>
+      <%= hidden_field_tag 'package_type[school_ids][]', '' %>
+    </div>
+  </div>
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :package_ids, 'Packages' %>
+      <% Package.all.each do |package| %>
+        <br />
+        <%= label_tag { link_to package.slug, package } %>
+        <%= check_box_tag 'package_type[package_ids][]', package.id,
+          @package_type.package_ids.include?(package.id), :class => 'right' %>
+      <% end %>
+      <%= hidden_field_tag 'package_type[school_ids][]', '' %>
+    </div>
+  </div>
+  <div class="field third">
+    <%= (@package_type.image?) ? image_tag(@package_type.image.url) : f.label(:image) %>
+    <%= f.file_field :image %>
+  </div>
+  <table class="full">
+    <tr>
+      <th>Price (cents)</th>
+      <th>School</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+      <th>Destroy?</th>
+    </tr>
+    <%= f.fields_for :prices do |p| %>
+    <tr>
+      <td><%= p.text_field :price %></td>
+      <td><%= p.collection_select :school_id, School.all, :id, :title, :include_blank => true %></td>
+      <td><%= p.date_select :begin, :include_blank => true %></td>
+      <td><%= p.date_select :end, :include_blank => true %></td>
+      <td><%= p.check_box :_destroy %></td>
+    </tr>
+    <% end %>
+  </table>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>

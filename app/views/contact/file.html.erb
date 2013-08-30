@@ -1,0 +1,27 @@
+<h1 class="full">Download <%= @file %></h1>
+<%= form_for :message, :url => download_path do |f| %>
+  <div class="field fourth">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :phone %>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field fourth">
+    <%= f.label :school %>
+    <%= f.text_field :school %>
+  </div>
+  <div class="half_box right">
+    <div class="field fourth">
+      <%= f.submit 'Continue' %>
+    </div>
+    <div class="field fourth">
+      <%= f.submit 'Skip' %>
+    </div>
+  </div>
+<% end %>

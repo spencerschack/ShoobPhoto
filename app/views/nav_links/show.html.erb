@@ -1,0 +1,18 @@
+<h1 class="full"><%= breadcrumbs :admin, :nav_links, @nav_link.title %></h1>
+<hr class="full" />
+<div class="full">
+  <p>
+    <b>Title:</b> <%= @nav_link.title %>
+  </p>
+  <p>
+    <b>Path:</b> <%= @nav_link.slug %>
+  </p>
+  <p>
+    <b>Position:</b> <%= @nav_link.position %>
+  </p>
+  <p>
+    <b>Parent:</b> <%= @nav_link.parent.title if @nav_link.parent_id? %>
+  </p>
+</div>
+<hr class="full" />
+<%= link_to 'Edit', edit_nav_link_path(@nav_link), :class => 'full' %>

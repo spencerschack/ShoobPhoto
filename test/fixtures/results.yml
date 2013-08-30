@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  runner_id: 1
+  race_id: 1
+  distance: MyString
+  time: MyString
+
+two:
+  runner_id: 1
+  race_id: 1
+  distance: MyString
+  time: MyString

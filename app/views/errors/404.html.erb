@@ -1,0 +1,7 @@
+<h1 class="full">Sorry, but <em><%= request.fullpath %></em> could not be found</h1>
+<hr class="full" />
+<p class="third">This url could not be found on this server. Please check the address for errors.</p>
+<p class="third">For assistance in finding the page you were looking for, look at the site map below or email us at <%= mail_to 'info@shoobphoto.com' %>.</p>
+<p class="third">If you arrived at this page from a link, please email <%= mail_to 'info@shoobphoto.com' %> describing where you clicked on the link.</p>
+<hr class="full" />
+<%= render 'errors/site_map' %>

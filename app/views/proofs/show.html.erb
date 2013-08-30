@@ -1,0 +1,15 @@
+<% @javascripts << 'proofs/gallery' %>
+<% @stylesheets << 'proofs/gallery' %>
+
+<h1 class="full"><%= @proof.student_id %> at <%= @proof.school.title %></h1>
+<hr class="full" />
+<div id="gallery">
+  <% @proof.proof_images.each do |proof_image| %>
+    <div class="sixth banner">
+    	<div class="square">
+	      <%= image_tag proof_image.image.url, :size => proof_image.dimensions %>
+	    </div>
+      <span><%= proof_image.image_file_name %></span>
+    </div>
+  <% end %>
+</div>

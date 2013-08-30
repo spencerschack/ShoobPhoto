@@ -1,0 +1,11 @@
+<h1 class="two_thirds"><%= link_to @school.title, "#{purchase_pictures_path}/#{@school.slug}" %><span class="right_arrow"></span><%= @package_type.title %></h1>
+<h1 class="third align_right"><%= link_to 'Cart', cart_path %></h1>
+<div class="full">
+  <% @packages.each do |package| %>
+    <%= link_to "#{purchase_pictures_path}/#{@school.slug}/#{@package_type.slug}/#{package.slug}" do %>
+      <%= image_tag package.image.url if package.image? %>
+      <h2><%= "#{package.title} - #{number_to_currency package.price @school}" %></h2>
+    <% end %>
+    <hr />
+  <% end %>
+</div>

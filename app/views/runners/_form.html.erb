@@ -1,0 +1,85 @@
+<%= form_for(@runner) do |f| %>
+  <% if @runner.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@runner.errors.count, "error") %> prohibited this runner from being saved:</h2>
+
+      <ul>
+      <% @runner.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="field third">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="field third">
+      <%= f.label :gender %>
+      <%= f.select :gender, ['', 'Female', 'Male'] %>
+    </div>
+    <div class="third check_box">
+      <%= f.label :birthday %>
+      <%= f.date_select :birthday, :start_year => Time.now.year - 100, :end_year => Time.now.year %>
+    </div>
+  </div>
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :shirt_size %>
+      <%= f.text_field :shirt_size %>
+    </div>
+    <div class="field third">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field third">
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+    </div>
+  </div>
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+    </div>
+    <div class="field third">
+      <%= f.label :city %>
+      <%= f.text_field :city %>
+    </div>
+    <div class="field third">
+      <%= f.label :state %>
+      <%= f.text_field :state %>
+    </div>
+    <div class="field third">
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code %>
+    </div>
+  </div>
+  <hr class="full" />
+  <table class="full">
+    <tr>
+      <th>Race</th>
+      <th>Distance</th>
+      <th>Time</th>
+      <th>Destroy?</th>
+    </tr>
+  <% f.fields_for :results do |r| %>
+    <tr>
+      <th><%= r.collection_select :race_id, Race.all, :id, :name %></th>
+      <th><%= r.text_field :distance %></th>
+      <th><%= r.time_select :time, :include_seconds => true, :default => {:hour => 0, :minute => 0, :second => 0} %></th>
+      <th><%= r.check_box :_destroy %></th>
+    </tr>
+  <% end %>
+  </table>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>

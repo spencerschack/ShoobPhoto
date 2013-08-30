@@ -1,0 +1,33 @@
+<% @javascripts << 'catalog/printing_product' %>
+
+<h1 class="half"><%= link_to 'Printing Products', printing_path %><span class="right_arrow"></span><%= @cart_product.product.title %></h1>
+<h1 class="half align_right"><%= link_to 'Cart', cart_path %></h1>
+<% if @cart_product.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@cart_product.errors.count, "error") %> prohibited this product from being added to your cart:</h2>
+      <ul>
+      <% @cart_product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= form_for @cart_product, :url => cart_add_product_path, :html => {:multipart => true} do |f| %>
+  <%= f.hidden_field :product_id %>
+  <div class="field third">
+    <%= f.label :school %>
+    <%= f.text_field :school %>
+  </div>
+  <div class="field two_thirds">
+    <%= f.label :file %>
+    <%= f.file_field :file %>
+  </div>
+  <hr class="full" />
+  <div class="two_thirds align_right">
+    Purchase <%= f.select :quantity, quantity_options(@cart_product.product.minimum_quantity) %> at
+    <b class="price"><%= number_to_currency @cart_product.product.price %></b> each
+  </div>
+  <h3 class="sixth align_right">Total: <span class="total"><%= number_to_currency @cart_product.product.price %></span></h3>
+  <%= f.submit 'Add To Cart', :class => 'sixth' %>
+<% end %>

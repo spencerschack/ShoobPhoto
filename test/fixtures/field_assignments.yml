@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  field_id: 1
+  package_id: 1
+  package_type_id: 1
+  school_id: 1
+
+two:
+  field_id: 1
+  package_id: 1
+  package_type_id: 1
+  school_id: 1

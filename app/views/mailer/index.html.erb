@@ -1,0 +1,21 @@
+<% @javascripts << 'mailer/index.js' %>
+
+<h1 class="full"><%= breadcrumbs :admin, :emailer %></h1>
+<%= form_for @mailer, :url => mailer_path do |f| %>
+  <div class="field third">
+    <%= f.label :addresses, 'Addresses (one per line)' %>
+    <%= f.text_area :addresses %>
+  </div>
+  <div class="field two_thirds">
+    <%= f.label :subject %>
+    <%= f.text_field :subject %>
+  </div>
+  <div class="field two_thirds">
+    <%= f.label :message, 'Message (HTML)' %>
+    <%= f.text_area :message %>
+  </div>
+  <hr class="full" />
+  <div class="full">
+    <%= f.submit 'Start Sending' %>
+  </div>
+<% end %>

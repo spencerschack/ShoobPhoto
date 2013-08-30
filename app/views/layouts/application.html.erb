@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shoob Photography<%= request.fullpath.split('/').map(&:titleize).join(' - ') %></title>
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <%= stylesheet_link_tag @stylesheets %>
+  <%= stylesheet_link_tag @stylesheets_print, :media => 'print' if @stylesheets_print.present? %>
+  <%= javascript_include_tag @javascripts %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <h1><a href="/">Shoob Photography</a></h1>
+      <ul class="navigation">
+      <% @nav_links.each do |nav_link| %>
+        <li<%= request.fullpath.split('/')[1] == nav_link.slug ? " class='current'" : '' %>>
+          <%= link_to nav_link.title, nav_link.path %>
+        </li>
+      <% end %>
+      </ul>
+  	</div>
+  	<% unless flash.blank? %>
+  		<ul id="flash" class="full">
+  		<% flash.each do |key, msg| %>
+    		<li><%= key.to_s.humanize %>: <%= msg %></li>
+  		<% end %>
+  		</ul>
+  	<% end %>
+  	<%= yield %>
+  	<div id="footer">
+  		Copyright &copy; 2011 Shoob Photography |
+  		<% if current_user %>
+  		  <%= link_to 'Logout', logout_path %><% if permitted_to? :index, :admin %> | <%= link_to 'Admin', admin_path %><% end %>
+  		<% else %>
+  		  <%= link_to 'ShoobPhoto Login', login_path %>
+  		<% end %> | 
+  		<%= link_to 'Gmail Login', 'https://www.google.com/a/shoobphoto.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fa%2Fshoobphoto.com%2F' %>
+  	</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<h1 class="two_thirds">Purchase Pictures</h1>
+<h1 class="third align_right"><%= link_to 'Cart', cart_path %></h1>
+<%= image_tag '/images/banners/purchase_pictures/purchase_pictures.jpg', :class => 'full banner' %>
+<%= form_tag purchase_pictures_path, :method => 'GET', :class => 'search' do %>
+  <div class="field three_fourths">
+    <%= text_field_tag :search, params[:search].blank? ? 'Enter school name to search' : params[:search], :rel => 'Enter school name to search' %>
+  </div>
+  <div class="field fourth">
+    <%= submit_tag 'Search Schools', :name => nil %>
+  </div>
+<% end %>
+<hr class="full" />
+<% if @results %>
+  <% if @results.any? %>
+    <h2 class="full">Search Results</h2>
+    <ul class="full list">
+    <% @results.each do |school| %>
+      <li><%= link_to school.title, "#{purchase_pictures_path}/#{school.slug}" %></li>
+    <% end %>
+    </ul>
+  <% else %>
+    <em class="full banner">No results were found for '<%= params[:search] %>'</em>
+    <hr class="full" />
+  <% end %>
+<% end %>
+<% @school_types.each do |type| %>
+  <div class="third school_list">
+    <h2><%= type.title %> Schools</h2>
+    <ul class="list">
+    <% type.schools.sort_by(&:title).group_by{|school| school.title[0].chr}.each do |letter, group| %>
+      <li class="group_header"><%= letter %></li>
+      <% group.each do |school| %>
+        <li><%= link_to school.title, "#{purchase_pictures_path}/#{school.slug}" %></li>
+      <% end %>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

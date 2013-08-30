@@ -1,0 +1,51 @@
+<h1 class="two_thirds">Cart</h1>
+<h2 class="third align_right"><%= link_to 'Continue Shopping', purchase_pictures_path %></h2>
+<%= image_tag '/images/banners/cart/cart.jpg', :class => 'banner full' %>
+<% if @cart.line_items.any? %>
+  <% @cart.line_items.each do |line_item| %>
+    <table class="full">
+      <tr>
+      <% line_item.data.keys.each do |header| %>
+        <th><%= header.to_s.humanize %></th>
+      <% end %>
+      <% unless line_item.file_upload.nil? %>
+        <th>File</th>
+      <% end %>
+        <th class="fixed_width">Price</th>
+        <th class="fixed_width"></th>
+      </tr>
+      <tr>
+        <% line_item.data.values.each do |value| %>
+          <% if value.is_a?(Hash) || value.is_a?(Array) %>
+            <td><%= value.values.join('<br />').html_safe %></td>
+          <% else %>
+            <td><%= value %></td>
+          <% end %>
+        <% end %>
+        <% unless line_item.file_upload.nil? %>
+          <td><%= link_to line_item.file_upload.file.url do %>
+            <%= line_item.file_upload.is_image? ? image_tag(line_item.file_upload.file.url(:thumb)) : line_item.file_upload.file.original_filename %>
+          <% end %></td>
+        <% end %>
+          <td class="fixed_width"><%= number_to_currency line_item.price %></td>
+          <td class="fixed_width"><%= link_to 'Remove', cart_destroy_path(line_item) %></td>
+      </tr>
+    </table>
+    <hr class="full" />
+  <% end %>
+  <h4 class="full align_right">
+      Subtotal: <%= number_to_currency @cart.subtotal %>
+    </h4>
+    <h4 class="full align_right">
+      Shipping: <%= number_to_currency @cart.shipping %>
+    </h4>
+    <h3 class="full align_right">
+      Total: <%= number_to_currency @cart.price %>
+    </h3>
+  <h2 class="half"><%= link_to 'Continue Shopping', purchase_pictures_path %></h2>
+  <h2 class="half align_right"><%= link_to 'Checkout', cart_checkout_path %></h2>
+<% else %>
+  <div class="full">
+    <h2 class="align_center">There are no items in your cart. Click <%= link_to :here, purchase_pictures_path %> to purchase pictures.</h2>
+  </div>
+<% end %>

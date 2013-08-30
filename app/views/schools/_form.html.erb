@@ -1,0 +1,44 @@
+<%= form_for(@school) do |f| %>
+  <% if @school.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@school.errors.count, "error") %> prohibited this school from being saved:</h2>
+
+      <ul>
+      <% @school.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field third">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field third">
+    <%= f.label :slug %>
+    <%= f.text_field :slug %>
+  </div>
+  <div class="field third">
+    <%= f.label :package_type_ids, 'Package Types' %>
+    <% PackageType.all.each do |type| %>
+      <br />
+      <%= label_tag { link_to type.slug, type } %>
+      <%= check_box_tag 'school[package_type_ids][]',
+        type.id, @school.package_type_ids.include?(type.id), :class => 'right' %>
+    <% end %>
+    <%= hidden_field_tag 'school[package_type_ids][]', '' %>
+  </div>
+  <div class="field third">
+    <%= f.label :school_type_id %>
+    <%= f.collection_select :school_type_id, SchoolType.all, :id, :title, :include_blank => true %>
+  </div>
+  <div class="check_box third">
+    <%= f.label :teacher, 'Ask for teacher?' %>
+    <%= f.check_box :teacher %>
+  </div>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>

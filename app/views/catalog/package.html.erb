@@ -1,0 +1,106 @@
+<% @javascripts << 'catalog/package' %>
+
+<h1 class="two_thirds"><%= link_to @cart_package.school.title, "#{purchase_pictures_path}/#{@cart_package.school.slug}" %><span class="right_arrow"></span><%= link_to @cart_package.package.package_type.title, "#{purchase_pictures_path}/#{@cart_package.school.slug}/#{@cart_package.package.package_type.slug}" %><span class="right_arrow"></span><%= @cart_package.package.title %></h1>
+<h1 class="third align_right"><%= link_to 'Cart', cart_path %></h1>
+<div class="full">
+  <%= image_tag @cart_package.package.image.url, :class => 'banner' if @cart_package.package.image? %>
+  <% if @cart_package.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@cart_package.errors.count, "error") %> prohibited this package from being ordered:</h2>
+        <ul>
+        <% @cart_package.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+</div>
+<%= form_for @cart_package, :url => cart_add_package_path do |f| %>
+  <%= f.hidden_field :school_id %>
+  <%= f.hidden_field :package_id %>
+  <div class="half_box">
+    <div class="field fourth">
+      <%= f.label :student_first_name, 'Student\'s First Name' %>
+      <%= f.text_field :student_first_name %>
+    </div>
+    <div class="field fourth">
+      <%= f.label :student_last_name, 'Student\'s Last Name' %>
+      <%= f.text_field :student_last_name %>
+    </div>
+    <div class="field fourth">
+      <%= f.label :student_grade, 'Student\'s Grade' %>
+      <%= f.select :student_grade, (1..12).map{|number| [number.ordinalize]} + ['Kindergarten', 'Preschool', 'Headstart', 'Other'] %>
+    </div>
+    <% if @cart_package.school.teacher %>
+      <div class="field fourth">
+        <%= f.label :student_teacher, 'Student\'s Teacher' %>
+        <%= f.text_field :student_teacher %>
+      </div>
+    <% end %>
+    <% if @cart_package.package.package_type.sport_level %>
+      <div class="field fourth">
+        <%= f.label :student_sport_level, 'Student\'s Sport Level' %>
+        <%= f.select :student_sport_level, [['Varsity'],['Junior Varsity'],['Freshman'],['N/A']] %>
+      </div>
+      <div class="field fourth">
+        <%= f.label :student_sport, 'Student\'s Sport' %>
+        <%= f.text_field :student_sport %>
+      </div>
+    <% end %>
+    <% if @cart_package.package.purchase_id %>
+      <div class="field fourth">
+        <%= f.label :purchase_id, 'Purchase ID' %>
+        <%= f.text_field :purchase_id %>
+      </div>
+    <% end %>
+    <% if @cart_package.package.email_picture %>
+      <div class="check_box fourth">
+        <%= f.label :email_picture, 'Send a digital copy of the portrait to your email.' %>
+        <%= f.check_box :email_picture %>
+      </div>
+    <% end %>
+  </div>
+  <% unless @cart_package.package.option_types(@cart_package.school).nil? %>
+  <div id="options" class="half_box">
+    <% @cart_package.package.option_types(@cart_package.school).each do |option_type| %>
+      <div class="left">
+        <h4 class="margins"><%= option_type.title %></h4>
+      <% if option_type.multiple || option_type.options.count == 1 %>
+        <% option_type.options.each do |option| %>
+          <div class="check_box sixth">
+            <label for="<%= "cart_package_option_ids_#{option_type.id}" %>">
+              <%= image_tag option.image.url(:thumb), :class => 'twelfth' if option.image? %>
+              <%= option.title %><%= number_to_currency(option.price(@cart_package.school), :show_zero => false, :format => ' - <span>%u%n</span>') %>
+            </label>
+            <%= check_box_tag "cart_package[option_ids][#{option_type.id}]", option.id %>
+          </div>
+        <% end %>
+      <% else %>
+        <% option_type.options.each do |option| %>
+          <div class="check_box sixth">
+            <label for="<%= "cart_package_option_ids_#{option_type.id}_#{option.id}" %>">
+              <%= image_tag option.image.url(:thumb), :class => 'twelfth' if option.image? %>
+              <%= option.title %><%= number_to_currency(option.price(@cart_package.school), :show_zero => false, :format => ' - <span>%u%n</span>') %>
+            </label>
+            <%= radio_button_tag "cart_package[option_ids][#{option_type.id}]", option.id %>
+          </div>
+        <% end %>
+        <% unless option_type.required %>
+          <div class="check_box sixth">
+            <label for="<%= "cart_package_option_ids_#{option_type.id}_" %>">None</label>
+            <%= radio_button_tag "cart_package[option_ids][#{option_type.id}]", nil %>
+          </div>
+        <% end %>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+  <hr class="full" />
+  <div class="two_thirds align_right">
+    Purchase <%= f.select :quantity, (1..30) %> at
+    <b class="price"><%= number_to_currency @cart_package.package.price @cart_package.school %></b> each
+  </div>
+  <h3 class="sixth align_right">Total: <span class="total"><%= number_to_currency @cart_package.package.price @cart_package.school %></span></h3>
+  <%= f.submit 'Add To Cart', :class => 'sixth' %>
+<% end %>

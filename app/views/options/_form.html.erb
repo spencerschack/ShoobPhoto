@@ -1,0 +1,51 @@
+<%= form_for @option, :html => {:multipart => true} do |f| %>
+  <% if @option.errors.any? %>
+    <div id="error_explanation" class="full">
+      <h2><%= pluralize(@option.errors.count, "error") %> prohibited this option from being saved:</h2>
+      <ul>
+      <% @option.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="third_box">
+    <div class="field third">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field third">
+      <%= f.label :option_type_id %><br />
+      <%= f.collection_select :option_type_id, OptionType.all, :id, :title, :include_blank => true %>
+    </div>
+  </div>
+  <div class="field two_thirds">
+    <%= f.label :image %>
+    <%= image_tag @option.image.url if @option.image? %>
+    <%= f.file_field :image %>
+  </div>
+  <hr class="full" />
+  <table class="full">
+    <tr>
+      <th>Price (cents)</th>
+      <th>School</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+      <th>Delete?</th>
+    </tr>
+    <%= f.fields_for :prices do |p| %>
+    <tr>
+      <td><%= p.text_field :price %></td>
+      <td><%= p.collection_select :school_id, School.all, :id, :title, :include_blank => true %></td>
+      <td><%= p.date_select :begin, :include_blank => true %></td>
+      <td><%= p.date_select :end, :include_blank => true %></td>
+      <td><%= p.check_box :_destroy %></td>
+    </tr>
+    <% end %>
+  </table>
+  <hr class="full" />
+  <div class="actions half">
+    <%= f.submit %>
+  </div>
+<% end %>
