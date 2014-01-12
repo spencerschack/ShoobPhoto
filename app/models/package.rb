@@ -12,7 +12,7 @@ class Package < ActiveRecord::Base
   accepts_nested_attributes_for :prices, :reject_if => proc {|attrs| attrs['price'].blank?}, :allow_destroy => true
   accepts_nested_attributes_for :option_assignments, :reject_if => proc {|attrs| attrs['option_type_id'].blank?}, :allow_destroy => true
   
-  has_attached_file :image, :url => '/images/packages/:id/:filename'
+  has_attached_file :image, :path => '/images/packages/:id/:filename'
   
   def slug= slug_value
     write_attribute :slug, slug_value.parameterize('_')

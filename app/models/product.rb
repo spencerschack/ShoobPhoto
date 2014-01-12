@@ -2,7 +2,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :title
   validates_uniqueness_of :slug
   
-  has_attached_file :image, :url => '/images/products/:id/:filename'
+  has_attached_file :image, :path => '/images/products/:id/:filename'
   
   before_validation :set_slug
   

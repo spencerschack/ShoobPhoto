@@ -37,6 +37,17 @@ module ShoobPhoto
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
+    Paperclip::Attachment.default_options.merge!({
+      :storage => :s3,
+      :bucket => ENV['S3_BUCKET_NAME'],
+      :s3_credentials => {
+        :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+        :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+      },
+      :s3_permissions => :public_read,
+      :s3_host_name => 's3-us-west-1.amazonaws.com'
+    })
+
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation, :card_number, :card_verification]
   end

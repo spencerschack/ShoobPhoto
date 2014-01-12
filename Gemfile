@@ -11,6 +11,7 @@ gem 'authlogic'
 gem 'declarative_authorization'
 
 gem 'paperclip'
+	gem 'aws-s3'
 
 gem 'activemerchant'
 
