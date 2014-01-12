@@ -1,5 +1,6 @@
 class UserSessionsController < ApplicationController
-  ssl_required :new, :create
+
+  ssl_required :new, :create if Rails.env.production?
   
   def new
     @user_session = UserSession.new

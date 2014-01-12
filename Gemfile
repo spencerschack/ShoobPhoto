@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails'
+ruby '1.8.7'
+
+gem 'rails', '3.1.3'
 
 gem 'nested_set'
 
@@ -18,4 +20,9 @@ gem 'ssl_requirement'
 
 gem 'barby'
 
-gem 'mysql2'
+gem 'pg'
+gem 'sqlite3', :group => :test
+
+gem 'rails_12factor', :group => :production
+
+gem 'unicorn'

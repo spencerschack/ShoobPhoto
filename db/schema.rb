@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110617172313) do
+ActiveRecord::Schema.define(:version => 20140109004735) do
 
   create_table "cart_packages", :force => true do |t|
     t.integer  "school_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20110617172313) do
   create_table "line_items", :force => true do |t|
     t.string   "data"
     t.integer  "price"
+    t.integer  "shipping"
     t.integer  "cart_id"
     t.integer  "order_id"
     t.datetime "created_at"
@@ -172,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20110617172313) do
     t.datetime "end"
     t.integer  "package_id"
     t.integer  "option_id"
+    t.integer  "package_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -204,10 +206,6 @@ ActiveRecord::Schema.define(:version => 20110617172313) do
     t.string   "school_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
   end
 
   create_table "races", :force => true do |t|
@@ -247,6 +245,7 @@ ActiveRecord::Schema.define(:version => 20110617172313) do
     t.string   "gender"
     t.string   "shirt_size"
     t.date     "birthday"
+    t.boolean  "shadowchase", :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
