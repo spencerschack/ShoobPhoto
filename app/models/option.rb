@@ -5,7 +5,7 @@ class Option < ActiveRecord::Base
   validates_presence_of :title
   
   has_attached_file :image,
-  	:path => '/options/:id/:style/:filename',
+    :path => '/images/options/:id/:style/:filename',
   	:styles => {:thumb => '50x100'}
   
   accepts_nested_attributes_for :prices, :reject_if => proc {|attrs| attrs['price'].blank?}, :allow_destroy => true

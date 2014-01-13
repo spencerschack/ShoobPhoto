@@ -14,7 +14,7 @@ namespace :attachments do
     puts AWS::S3::DEFAULT_HOST
     AWS::S3::DEFAULT_HOST.replace 's3-us-west-1.amazonaws.com'
 
-    [FileUpload, Option, Package, PackageType, Product, ProofImage].each do |klass|
+    [Option, ProofImage].each do |klass|
 
       puts "Class: #{klass.name}"
 
@@ -29,7 +29,8 @@ namespace :attachments do
         # Process each attachment
         klass.all.each_with_index do |record, n|
           styles.each do |style|
-            path = record.send(attachment).url(style).split('?', 2)[0]
+            next unless record.send("#{attachment}?")
+            path = record.send(attachment).url(style)
             file = record.send(attachment).to_file(style)
             
             begin

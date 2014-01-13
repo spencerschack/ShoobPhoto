@@ -2,7 +2,7 @@ class ProofImage < ActiveRecord::Base
   belongs_to :proof
   
   has_attached_file :image,
-  	:path => proc {|clip| "/proofs/#{clip.instance.proof.code}/:id.:extension"}
+  	:path => proc {|clip| "/images/proofs/#{clip.instance.proof.code}/:id.:extension"}
   
   def dimensions
     geo = Paperclip::Geometry.from_file image.to_file
